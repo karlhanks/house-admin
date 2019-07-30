@@ -1,19 +1,24 @@
-import React,{Component} from 'react'
-import { Button ,Pagination} from 'antd';
-export default class App extends Component{
-    onShowSizeChange(current, pageSize) {
-        console.log(current, pageSize);
-      }
-    render(){
+import React, { Component } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import Frame from './components/Frame'
+import Articlecreate from './views/Article/create'
+import Articlelist from './views/Article'
+import Dashboard from './views/Dashboard'
+import Settings from './views/Settings'
+export default class App extends Component {
+    render() {
         return (
-            <div>webopenfather<Button type="primary">Button</Button>
-            <Pagination
-      showSizeChanger
-      onShowSizeChange={this.onShowSizeChange}
-      defaultCurrent={3}
-      total={500}
-    />
-            </div>
+            <Frame>
+                <Switch>
+                    <Route path='/admin/article/create' component={Articlecreate} />
+                    <Route path='/admin/article' component={Articlelist} />
+                    <Route path='/admin/dashboard' component={Dashboard} />
+                    <Route path='/admin/settings' component={Settings} />
+                    <Redirect to='/404' />
+                </Switch>
+            </Frame>
+
         )
     }
 }
+
