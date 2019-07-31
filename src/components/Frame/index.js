@@ -2,21 +2,58 @@ import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
 import logo from './logo.png'
 import './index.less'
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon , Dropdown, Avatar, Badge} from 'antd';
 
 const { Header, Content, Sider } = Layout;
 export default class Frame extends Component{
+  constructor(){
+    super()
+    this.state={
+      key:'1'
+    }
+  }
     render(){
+      const menu = (
+        <Menu>
+          <Menu.Item>
+            <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+              通知
+            </a>
+          </Menu.Item>
+          <Menu.Item>
+            <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+              设置
+            </a>
+          </Menu.Item>
+          <Menu.Item>
+            <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+              退出
+            </a>
+          </Menu.Item>
+        </Menu>
+      );
         return(
             <Layout>
     <Header className="header">
       <img src={logo} alt='logo'/>
+      <div className='right'>
+      <Dropdown overlay={menu}>
+    <a className="ant-dropdown-link" href="#">
+    <span style={{ marginRight: 24 }}>
+      <Badge count={999}>
+        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+      </Badge>
+    </span>
+      欢迎，karl <Icon type="down" />
+    </a>
+  </Dropdown>
+      </div>
     </Header>
     <Layout>
       <Sider width={200} style={{ background: '#fff' }}>
         <Menu
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={[this.state.key]}
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
         >
@@ -45,5 +82,8 @@ export default class Frame extends Component{
     </Layout>
   </Layout>
         )
+    }
+    componentDidMount(){
+      console.log(this.props)
     }
 }
