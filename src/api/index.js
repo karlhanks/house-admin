@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 axios.defaults.baseURL = 'http://rap2api.taobao.org/app/mock/227017/';
 
 
@@ -27,10 +28,31 @@ axios.interceptors.response.use(response => {
     return Promise.reject(error)
 });
 
-export const getArtApi = (apiParams) => {
+export const getArtApi = (apiParams) => {//获取文章列表
     return axios({
         method: 'get',
         url: 'api/v1/article',
+        params: apiParams 
+    })
+}
+export const postArtapi=(apiParams)=>{//添加文章
+    return axios({
+        method: 'post',
+        url: 'api/v1/article',
+        data: qs.stringify(apiParams)
+    })
+}
+export const deleteArtapi=(id,apiParams)=>{//删除文章
+    return axios({
+        method: 'delete',
+        url: 'api/v1/article/'+id,
+        params: apiParams 
+    })
+}
+export const getLoginApi=(apiParams)=>{//删除文章
+    return axios({
+        method: 'get',
+        url: 'api/v1/login',
         params: apiParams 
     })
 }

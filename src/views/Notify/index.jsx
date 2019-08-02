@@ -17,25 +17,29 @@ export default class Notify extends Component {
                 {
                   title: 'Ant Design Title 4',
                 },
-              ]
+              ],
+              dot:true
         }
+    }
+    click(index){
+     let supobj=document.querySelectorAll('.ant-badge-dot')
+     supobj[index].style.display='none'
     }
     render() {
         return (
             <div>
-                <Card title="通知中心" extra={<Button>全部标记为已读</Button>} >
+                <Card title="通知中心" extra={<Button onClick={()=>{this.setState({dot:false})}}>全部标记为已读</Button>} >
                     <List
                         itemLayout="horizontal"
                         dataSource={this.state.data}
-                        renderItem={item => (
-                            <List.Item extra={<Button>标记为已读</Button>}>
+                        renderItem={(item,index) => (
+                            <List.Item extra={<Button onClick={this.click.bind(this,index)}>标记为已读</Button>}>
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                    title={<a href="https://ant.design"><Badge dot>
+                                    title={<a href="https://ant.design"><Badge dot={this.state.dot}>
                                     {item.title}
                                   </Badge></a>}
                                     description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    
                                 />
                             </List.Item>
                         )}

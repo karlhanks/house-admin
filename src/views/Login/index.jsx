@@ -1,12 +1,31 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Checkbox ,Card} from 'antd';
+import { Form, Icon, Input, Button, Checkbox ,Card, message} from 'antd';
+import {getLoginApi} from '../../api'
 import './index.less'
 class Login extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                getLoginApi(values).then(res=>{
+                    if(res.meta.state===200){
+                        if(values.remember){
+                            localStorage.setItem('uname',res.data.username)
+                            localStorage.setItem('token',res.data.token)
+                        }
+                        else{
+                            sessionStorage.setItem('uname',res.data.username)
+                            sessionStorage.setItem('token',res.data.token)
+                        }
+                        message.success('登录成功')
+                        setTimeout(()=>{
+                            this.props.history.push('/admin/dashboard')
+                        },1000)
+                    }
+                    else{
+                        message.error(res.meta.msg)
+                    }
+                })
             }
         });
     };

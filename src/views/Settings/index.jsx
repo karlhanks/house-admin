@@ -1,5 +1,10 @@
 import React,{Component} from 'react'
-export default class ArticleCreate extends Component{
+import { connect } from 'react-redux'
+class Settings extends Component{
+    constructor (props){
+        super(props)
+        props.navUpdate('后台首页>设置')
+    }
     render(){
         return (
             <div>
@@ -8,3 +13,19 @@ export default class ArticleCreate extends Component{
         )
     }
 }
+const mapState = state => {
+    return {
+
+    }
+}
+const mapDispatch = dispatch => {
+    return {
+        navUpdate: (content) => dispatch({
+            type: 'NAV_BREAD',
+            payload: {
+                content: content
+            }
+        })
+    }
+}
+export default connect(mapState, mapDispatch)(Settings)

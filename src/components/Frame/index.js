@@ -1,16 +1,20 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
+import {connect } from 'react-redux'
 import logo from './logo.png'
 import './index.less'
+
 import { Layout, Menu, Breadcrumb, Icon , Dropdown, Avatar, Badge} from 'antd';
 
 const { Header, Content, Sider } = Layout;
-export default class Frame extends Component{
-  constructor(){
-    super()
+ class Frame extends Component{
+  constructor(props){
+    super(props)
     this.state={
-      key:'1'
+      key:'1',
+      num:null
     }
+    console.log(props)
   }
     render(){
       const menu = (
@@ -40,9 +44,9 @@ export default class Frame extends Component{
       <Dropdown overlay={menu}>
     <a className="ant-dropdown-link" href="#">
     <span style={{ marginRight: 24 }}>
-      <Badge count={999}>
+      <Badge count={this.props.num}>
         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-      </Badge>
+      </Badge >
     </span>
       欢迎，karl <Icon type="down" />
     </a>
@@ -64,9 +68,8 @@ export default class Frame extends Component{
       </Sider>
       <Layout style={{ padding: '0 24px 24px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
+          <Breadcrumb.Item>{this.props.nav}</Breadcrumb.Item>
+          
         </Breadcrumb>
         <Content
           style={{
@@ -84,6 +87,21 @@ export default class Frame extends Component{
         )
     }
     componentDidMount(){
-      console.log(this.props)
+      console.log(this.props.nav)
     }
 }
+const mapState=state=>{
+  console.log(111)
+  console.log(state)
+  return {
+    x:111,
+    num:state.notify.number,
+    nav:state.notify.nav
+  }
+}
+const mapDispatch=dispatch=>{
+  return {
+
+  }
+}
+export default connect(mapState,mapDispatch)(Frame)

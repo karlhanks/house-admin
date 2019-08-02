@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Card, Row, Col } from 'antd'
 import './index.less'
 import echarts from 'echarts'
-export default class ArticleCreate extends Component {
+class Dashboard extends Component {
+    constructor(props){
+        super(props)
+        props.navUpdate('后台首页>仪表盘')
+    }
     componentDidMount() {
         var myChart = echarts.init(this.refs.main);
         var option = {
@@ -50,3 +55,19 @@ export default class ArticleCreate extends Component {
         )
     }
 }
+const mapState = state => {
+    return {
+
+    }
+}
+const mapDispatch = dispatch => {
+    return {
+        navUpdate: (content) => dispatch({
+            type: 'NAV_BREAD',
+            payload: {
+                content: content
+            }
+        })
+    }
+}
+export default connect(mapState, mapDispatch)(Dashboard)

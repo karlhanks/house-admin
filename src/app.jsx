@@ -7,6 +7,14 @@ import Dashboard from './views/Dashboard'
 import Settings from './views/Settings'
 import Notify from './views/Notify'
 export default class App extends Component {
+    constructor(props){
+        super(props)
+        this.uname1=localStorage.getItem('uname')
+        this.uname2=sessionStorage.getItem('uname')
+        if(!this.uname1&&!this.uname2){
+            props.history.push('./login')
+        }
+    }
     render() {
         return (
             <Frame>
